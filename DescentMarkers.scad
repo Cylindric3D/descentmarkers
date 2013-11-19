@@ -2,7 +2,7 @@
  * Author:  Mark Hanford
  * License: Creative Commons Attribution-ShareAlike 3.0 Unported License
  *          see http://creativecommons.org/licenses/by-sa/3.0/
- * URL:     http://www.thingiverse.com
+ * URL:     https://github.com/Cylindric3D/descentmarkers
  */
 
 include <utils/build_plate.scad>;
@@ -33,7 +33,7 @@ t=25.4;
 j = 0.01;
 
 // Curve resolution
-//$fn = 50;
+fn = 10;
 
 
 module GameTile()
@@ -71,7 +71,7 @@ module GraveStone()
 			// Main stone body
 			union()
 			{
-				translate([0, 0, 10]) rotate([90, 0, 0]) cylinder(r = 6, h = 3, center = true, $fn=60);
+				translate([0, 0, 10]) rotate([90, 0, 0]) cylinder(r = 6, h = 3, center = true, $fn=fn);
 				translate([0, 0, 5]) cube([12, 3, 10], center = true);	
 			}
 		
@@ -81,7 +81,7 @@ module GraveStone()
 			scale([0.9, 1, 0.9])
 			union()
 			{
-				translate([0, 0, 11+j]) rotate([90, 0, 0]) cylinder(r = 6, h = 0.5+j, center = true, $fn=60);
+				translate([0, 0, 11+j]) rotate([90, 0, 0]) cylinder(r = 6, h = 0.5+j, center = true, $fn=fn);
 				translate([0, 0, 5]) cube([12, 0.5+j, 11+j], center = true);
 			}
 		}
@@ -130,15 +130,15 @@ module Altar()
 		hull()
 		{
 			RoundCube([20, 10, j], radius = 0.5, $fn=16);
-			translate([1, 1, 2]) RoundCube([18, 8, j], radius = 0.5, $fn=16);
+			translate([1, 1, 2]) RoundCube([18, 8, j], radius = 0.5, $fn=fn/3);
 		}
 
 		// Pedestal
-		translate([1, 1, 0.5]) RoundCube([18, 8, 9], radius = 0.5, $fn=16);
-		translate([4, 0.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = 20);
-		translate([16, 0.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = 20);
-		translate([4, 9.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = 20);
-		translate([16, 9.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = 20);
+		translate([1, 1, 0.5]) RoundCube([18, 8, 9], radius = 0.5, $fn=fn/3);
+		translate([4, 0.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = fn/3);
+		translate([16, 0.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = fn/3);
+		translate([4, 9.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = fn/3);
+		translate([16, 9.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = fn/3);
 
 		
 		// Top
@@ -147,8 +147,8 @@ module Altar()
 		{
 			hull()
 			{
-				translate([1, 1, 0]) RoundCube([18, 8, j], radius = 0.5, $fn = 16);
-				translate([0, 0, 1]) RoundCube([20, 10, j], radius = 0.5, $fn = 16);
+				translate([1, 1, 0]) RoundCube([18, 8, j], radius = 0.5, $fn = fn/3);
+				translate([0, 0, 1]) RoundCube([20, 10, j], radius = 0.5, $fn = fn/3);
 			}
 		}
 	}
