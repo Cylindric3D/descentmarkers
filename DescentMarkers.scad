@@ -6,7 +6,7 @@
  */
 
 include <utils/build_plate.scad>;
-
+include <MCAD/boxes.scad>;
  
 /* [Common] */
 part = "all"; // [altar:Altar,grave:Grave,all:All]
@@ -33,31 +33,14 @@ t=25.4;
 j = 0.01;
 
 // Curve resolution
-fn = 10;
+fn = 20;
 
 
 module GameTile()
 {
-	color([0.3, 0.3, 0.3])
+	%color([0.3, 0.3, 0.3])
 	translate([0, 0, -t]) 
-	%cube([t, t, 2*t], center = true);
-}
-
-
-module RoundCube(size, radius = 1, $fn)
-{
-	hull()
-	{
-		translate([radius, radius, radius]) sphere(r = radius);
-		translate([size[0]-radius, radius, radius]) sphere(r = radius);
-		translate([radius, size[1]-radius, radius]) sphere(r = radius);
-		translate([size[0]-radius, size[1]-radius, radius]) sphere(r = radius);
-
-		translate([radius, radius, size[2]-radius]) sphere(r = radius);
-		translate([size[0]-radius, radius, size[2]-radius]) sphere(r = radius);
-		translate([radius, size[1]-radius, size[2]-radius]) sphere(r = radius);
-		translate([size[0]-radius, size[1]-radius, size[2]-radius]) sphere(r = radius);
-	}
+	cube([t, t, 2*t], center = true);
 }
 
 
@@ -99,8 +82,6 @@ module GraveStone()
 
 module Grave()
 {
-	GameTile();
-
 	// Gravestone
 	translate([0, 8, 0]) GraveStone();
 
@@ -120,36 +101,37 @@ module Grave()
 
 module Altar()
 {
-	GameTile();
-	
-	translate([-10, -5, 0])
+	//translate([-10, -5, 0])
 	union()
 	{
 		// Foot
-		translate([0, 0, 1])
-		hull()
-		{
-			RoundCube([20, 10, j], radius = 0.5, $fn=16);
-			translate([1, 1, 2]) RoundCube([18, 8, j], radius = 0.5, $fn=fn/3);
-		}
+		//translate([0, 0, 1])
+		//hull()
+		//{	
+		translate([0, 0, 1]) roundedBox([20, 10, 2], radius = 0.5, $fn = fn/3);
+		//	//translate([1, 1, 2])
+		//	roundedBox([18, 8, j], radius = 0.5, $fn=fn/3);
+		//}
 
 		// Pedestal
-		translate([1, 1, 0.5]) RoundCube([18, 8, 9], radius = 0.5, $fn=fn/3);
-		translate([4, 0.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = fn/3);
-		translate([16, 0.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = fn/3);
-		translate([4, 9.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = fn/3);
-		translate([16, 9.5, 0.5]) cylinder(r = 0.4, h = 9, $fn = fn/3);
-
+		//translate([1, 1, 0.5]) 
+		translate([0, 0, 6.5]) roundedBox([18, 8, 9], radius = 0.5, $fn = fn/3);
+		translate([-4, -4.4, 2]) cylinder(r = 0.4, h = 9, $fn = fn/3);
+		translate([4, -4.4, 2]) cylinder(r = 0.4, h = 9, $fn = fn/3);
+		translate([-4, 4.4, 2]) cylinder(r = 0.4, h = 9, $fn = fn/3);
+		translate([4, 4.4, 2]) cylinder(r = 0.4, h = 9, $fn = fn/3);
 		
 		// Top
-		translate([0, 0, 8])
+		//translate([0, 0, 8])
 		union()
 		{
-			hull()
-			{
-				translate([1, 1, 0]) RoundCube([18, 8, j], radius = 0.5, $fn = fn/3);
-				translate([0, 0, 1]) RoundCube([20, 10, j], radius = 0.5, $fn = fn/3);
-			}
+			//hull()
+			//{
+				//translate([1, 1, 0]) 
+				//translate([0, 0, 11.5]) roundedBox([18, 8, 1], radius = 0.5, $fn = fn/3);
+				//translate([0, 0, 1]) 
+				translate([0, 0, 11]) roundedBox([20, 10, 1], radius = 0.5, $fn = fn/3);
+			//}
 		}
 	}
 }
